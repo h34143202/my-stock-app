@@ -187,33 +187,31 @@ else:
 
     st.write("---")
 
-    col_tws_list, col_tpex_list = st.columns(2)
+    # 展示上市前五名
+    st.markdown("### 🏢 上市股票最適合買入前五名")
+    for idx, stock in enumerate(tws_ranking):
+        border = "border-left: 5px solid #30363D;"
+        color = "color: #FFFFFF;"
+        if stock.get("等級", 5) <= 2:
+            if stock.get("平盤價", 0.0) > 0:
+                border = "border-left: 5px solid #FFD700;"
+                color = "color: #FFD700;"
 
-    with col_tws_list:
-        st.markdown("### 🏢 上市股票最適合買入前五名")
-        for idx, stock in enumerate(tws_ranking):
-            border = (
-                "border-left: 5px solid #FFD700;"
-                if stock.get("等級", 5) <= 2 and stock.get("平盤價", 0.0) > 0
-                else "border-left: 5px solid #30363D;"
-            )
-            color = (
-                "color: #FFD700;"
-                if stock.get("等級", 5) <= 2 and stock.get("平盤價", 0.0) > 0
-                else "color: #FFFFFF;"
-            )
-            st.markdown(
-                f"<div class='rank-box' style='{border}'><div style='display: flex; justify-content: space-between;'><span style='font-size: 15px; font-weight: bold; {color}'>🥇 第 {idx+1} 名： {stock.get('股票', '無')} (平盤: {stock.get('平盤價', 0.0)}元)</span><span style='background-color: #21262D; padding: 2px 8px; border-radius: 5px; font-size: 11px; color: #FFCC00;'>等級: {stock.get('等級', 5)}</span></div><div style='margin-top: 6px; font-size: 12px; color: #8B949E;'>{stock.get('去噪判定', '無')}</div></div>",
-                unsafe_allow_html=True,
-            )
+        st.markdown(
+            f"<div class='rank-box' style='{border}'><div style='display: flex; justify-content: space-between;'><span style='font-size: 15px; font-weight: bold; {color}'>🥇 第 {idx+1} 名： {stock.get('股票', '無')} (平盤: {stock.get('平盤價', 0.0)}元)</span><span style='background-color: #21262D; padding: 2px 8px; border-radius: 5px; font-size: 11px; color: #FFCC00;'>等級: {stock.get('等級', 5)}</span></div><div style='margin-top: 6px; font-size: 12px; color: #8B949E;'>{stock.get('去噪判定', '無')}</div></div>",
+            unsafe_allow_html=True,
+        )
 
-    with col_tpex_list:
-        st.markdown("### 🏪 上櫃股票最適合買入前五名")
-        for idx, stock in enumerate(tpex_ranking):
-            border = (
-                "border-left: 5px solid #00E676;"
-                if stock.get("等級", 5) <= 2 and stock.get("平盤價", 0.0) > 0
-                else "border-left: 5px solid #30363D;"
-            )
-            color = (
-                "color: #00E676;"
+    st.write("---")
+
+    # 展示上櫃前五名
+    st.markdown("### 🏪 上櫃股票最適合買入前五名")
+    for idx, stock in enumerate(tpex_ranking):
+        border = "border-left: 5px solid #30363D;"
+        color = "color: #FFFFFF;"
+        if stock.get("等級", 5) <= 2:
+            if stock.get("平盤價", 0.0) > 0:
+                border = "border-left: 5px solid #00E676;"
+                color = "color: #00E676;"
+
+        st.markdown(
