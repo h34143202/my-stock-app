@@ -147,12 +147,12 @@ else:
     tpex_ranking = report.get("tpex_rank 5", [])
 
     top_tws = (
-        tws_ranking[0]
+        tws_ranking
         if tws_ranking
         else {"股票": "無符合標的", "平盤價": 0.0, "等級": 5}
     )
     top_stock_tpex = (
-        tpex_ranking[0]
+        tpex_ranking
         if tpex_ranking
         else {"股票": "無符合標的", "平盤價": 0.0, "等級": 5}
     )
@@ -187,7 +187,6 @@ else:
 
     st.write("---")
 
-    # 展示前五名 (【已修復】精確校對所有大括號與 get 函數語法)
     col_tws_list, col_tpex_list = st.columns(2)
 
     with col_tws_list:
@@ -217,3 +216,4 @@ else:
                 else "border-left: 5px solid #30363D;"
             )
             color = (
+                "color: #00E676;"
