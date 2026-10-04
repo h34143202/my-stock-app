@@ -93,35 +93,13 @@ else:
 
     with col_bt_tws:
         st.markdown(
-            f"""
-        <div class='metric-box' style='border-top: 4px solid #FFD700;'>
-            <span style='color: #FFD700; font-weight: bold;'>🏢 上市第一名隔夜回測結果</span><br>
-            <span style='font-size: 14px; color: #8B949E;'>昨日標的：{backtest_data['tws_prev_stock']}</span><br>
-            <span style='font-size: 28px; font-weight: bold; color: #00E676;'>+{backtest_data['tws_today_move']*100:.2f} %</span>
-            <div style='margin-top: 10px; display: flex; justify-content: space-around; font-size: 13px;'>
-                <span>📊 總測試天數: <b>{backtest_data['tws_total_trades']} 天</b></span>
-                <span>🎯 高點套利勝率: <b style='color: #FFD700;'>{backtest_data['tws_win_rate']:.2f} %</b></span>
-                <span>🚨 尾盤確破停損: <b style='color: #FF4D4D;'>{backtest_data['tws_stop_loss_count']} 次</b></span>
-            </div>
-        </div>
-        """,
+            f"<div class='metric-box' style='border-top: 4px solid #FFD700;'><span style='color: #FFD700; font-weight: bold;'>🏢 上市第一名隔夜回測結果</span><br><span style='font-size: 14px; color: #8B949E;'>昨日標的：{backtest_data['tws_prev_stock']}</span><br><span style='font-size: 28px; font-weight: bold; color: #00E676;'>+{backtest_data['tws_today_move']*100:.2f} %</span><div style='margin-top: 10px; display: flex; justify-content: space-around; font-size: 13px;'><span>📊 總測試天數: <b>{backtest_data['tws_total_trades']} 天</b></span><span>🎯 高點套利勝率: <b style='color: #FFD700;'>{backtest_data['tws_win_rate']:.2f} %</b></span><span>🚨 尾盤確破停損: <b style='color: #FF4D4D;'>{backtest_data['tws_stop_loss_count']} 次</b></span></div></div>",
             unsafe_allow_html=True,
         )
 
     with col_bt_tpex:
         st.markdown(
-            f"""
-        <div class='metric-box' style='border-top: 4px solid #00E676;'>
-            <span style='color: #00E676; font-weight: bold;'>🏪 上櫃第一名隔夜回測結果</span><br>
-            <span style='font-size: 14px; color: #8B949E;'>昨日標的：{backtest_data['tpex_prev_stock']}</span><br>
-            <span style='font-size: 28px; font-weight: bold; color: #00E676;'>+{backtest_data['tpex_today_move']*100:.2f} %</span>
-            <div style='margin-top: 10px; display: flex; justify-content: space-around; font-size: 13px;'>
-                <span>📊 總測試天數: <b>{backtest_data['tpex_total_trades']} 天</b></span>
-                <span>🎯 高點套利勝率: <b style='color: #00E676;'>{backtest_data['tpex_win_rate']:.2f} %</b></span>
-                <span>🚨 尾盤確破停損: <b style='color: #FF4D4D;'>{backtest_data['tpex_stop_loss_count']} 次</b></span>
-            </div>
-        </div>
-        """,
+            f"<div class='metric-box' style='border-top: 4px solid #00E676;'><span style='color: #00E676; font-weight: bold;'>🏪 上櫃第一名隔夜回測結果</span><br><span style='font-size: 14px; color: #8B949E;'>昨日標的：{backtest_data['tpex_prev_stock']}</span><br><span style='font-size: 28px; font-weight: bold; color: #00E676;'>+{backtest_data['tpex_today_move']*100:.2f} %</span><div style='margin-top: 10px; display: flex; justify-content: space-around; font-size: 13px;'><span>📊 總測試天數: <b>{backtest_data['tpex_total_trades']} 天</b></span><span>🎯 高點套利勝率: <b style='color: #00E676;'>{backtest_data['tpex_win_rate']:.2f} %</b></span><span>🚨 尾盤確破停損: <b style='color: #FF4D4D;'>{backtest_data['tpex_stop_loss_count']} 次</b></span></div></div>",
             unsafe_allow_html=True,
         )
 
@@ -134,23 +112,12 @@ else:
 
     if risk_score >= 4:
         st.markdown(
-            f"""
-        <div class='card-red'>
-            <h2 style='color: #FF4D4D; margin: 0 0 10px 0;'>🛡️ 全局環境風險等級： {risk_score} / 5 (高隱含風險)</h2>
-            <p style='font-size: 15px; margin: 0;'>⚠️ 警訊監控：{risk_desc}</p>
-            <p style='font-size: 16px; font-weight: bold; margin-top: 10px; color: #FF4D4D;'>【大師防護機制】系統已判定今日大漲為虛胖噪訊！自動啟動防護降級，剔除所有單純跟漲個股，嚴防誘多大跌！</p>
-        </div>
-        """,
+            f"<div class='card-red'><h2 style='color: #FF4D4D; margin: 0 0 10px 0;'>🛡️ 全局環境風險等級： {risk_score} / 5 (高隱含風險)</h2><p style='font-size: 15px; margin: 0;'>⚠️ 警訊監控：{risk_desc}</p><p style='font-size: 16px; font-weight: bold; margin-top: 10px; color: #FF4D4D;'>【大師防護機制】系統已判定今日大漲為虛胖噪訊！自動啟動防護降級，剔除所有單純跟漲個股，嚴防誘多大跌！</p></div>",
             unsafe_allow_html=True,
         )
     else:
         st.markdown(
-            f"""
-        <div class='card-green'>
-            <h2 style='color: #00E676; margin: 0 0 10px 0;'>🛡️ 全局環境風險等級： {risk_score} / 5 (極低風險)</h2>
-            <p style='font-size: 15px; margin: 0;'>最新指標：{risk_desc}。滿足無腦買進資格！</p>
-        </div>
-        """,
+            f"<div class='card-green'><h2 style='color: #00E676; margin: 0 0 10px 0;'>🛡️ 全局環境風險等級： {risk_score} / 5 (極低風險)</h2><p style='font-size: 15px; margin: 0;'>最新指標：{risk_desc}。滿足無腦買進資格！</p></div>",
             unsafe_allow_html=True,
         )
 
@@ -214,15 +181,7 @@ else:
                 else "color: #FFFFFF;"
             )
             st.markdown(
-                f"""
-            <div class='rank-box' style='{border}'>
-                <div style='display: flex; justify-content: space-between;'>
-                    <span style='font-size: 15px; font-weight: bold; {color}'>🥇 第 {idx+1} 名： {stock['股票']} (平盤: {stock['平盤價']}元)</span>
-                    <span style='background-color: #21262D; padding: 2px 8px; border-radius: 5px; font-size: 11px; color: #FFCC00;'>等級: {stock['等級']}</span>
-                </div>
-                <div style='margin-top: 6px; font-size: 12px; color: #8B949E;'>{stock['去噪判定']}</div>
-            </div>
-            """,
+                f"<div class='rank-box' style='{border}'><div style='display: flex; justify-content: space-between;'><span style='font-size: 15px; font-weight: bold; {color}'>🥇 第 {idx+1} 名： {stock['股票']} (平盤: {stock['平盤價']}元)</span><span style='background-color: #21262D; padding: 2px 8px; border-radius: 5px; font-size: 11px; color: #FFCC00;'>等級: {stock['等級']}</span></div><div style='margin-top: 6px; font-size: 12px; color: #8B949E;'>{stock['去噪判定']}</div></div>",
                 unsafe_allow_html=True,
             )
 
@@ -240,6 +199,6 @@ else:
                 else "color: #FFFFFF;"
             )
             st.markdown(
-                f"""
-            <div class='rank-box' style='{border}'>
-                <div style='display: flex; justify-content: space-between;'>
+                f"<div class='rank-box' style='{border}'><div style='display: flex; justify-content: space-between;'><span style='font-size: 15px; font-weight: bold; {color}'>🥇 第 {idx+1} 名： {stock['股票']} (平盤: {stock['平盤價']}元)</span><span style='background-color: #21262D; padding: 2px 8px; border-radius: 5px; font-size: 11px; color: #FFCC00;'>等級: {stock['等級']}</span></div><div style='margin-top: 6px; font-size: 12px; color: #8B949E;'>{stock['去噪判定']}</div></div>",
+                unsafe_allow_html=True,
+            )
