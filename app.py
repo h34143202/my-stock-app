@@ -1,10 +1,11 @@
-
 import streamlit as st
 import json
 import os
 
+# 1. 網頁頂級配置
 st.set_page_config(page_title="我的無腦量化交易聖盃", page_icon="⚡", layout="wide")
 
+# 注入高質感黑底、量子綠、警示紅的網頁美學
 st.markdown("""
     <style>
     .stApp { background-color: #0A0D14; color: #E4E7EB; }
@@ -28,11 +29,13 @@ if not st.session_state["authenticated"]:
     if st.button("確認登入系統"):
         if user_password == "8888":
             st.session_state["authenticated"] = True
+            st.sidebar.success("🎉 密碼正確，歡迎登入！")
             st.rerun()
         else:
             st.error("❌ 密碼錯誤，拒絕存取！")
 else:
-    left_col, right_col = st.columns()
+    # 【已修復】精確填入數字 2，切分成左右兩個完美的並排看板
+    left_col, right_col = st.columns(2)
     
     with left_col:
         st.markdown("### 📊 明日無腦買進排名與決策核心")
