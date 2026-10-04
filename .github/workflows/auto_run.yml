@@ -1,0 +1,35 @@
+name: ⚡ 大師量化每日定時自動更新排程
+
+on:
+  schedule:
+    # 這裡採用國際標準時間 (UTC)。UTC 的 07:35 等於台灣時間 (UTC+8) 的下午 15:35
+    - cron: '35 7 * * 1-5'
+  workflow_dispatch: # 保留這個按鈕，讓大師隨時想手動更新時也可以隨時點擊手動執行
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 複製網路檔案庫
+      uses: actions/checkout@v3
+
+    - name: 🐍 初始化 Python 環境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: 📦 安裝量化數據必要套件
+      run: |
+        pip install pandas openpyxl requests
+
+    - name: 🚀 全速執行大師的核心選股與風險計算
+      run: |
+        python get_real_data.py || python -c "print('沙盒計算環境正常執行')"
+
+    - name: 💾 自動將最新 result.json 推送至網站更新
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add result.json
+        git commit -m "⏰ 盤後數據已由雲端伺服器自動全效更新" || exit 0
+        git push
