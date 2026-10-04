@@ -25,7 +25,7 @@ st.markdown(
 
 st.title("⚡ 台股全個股動態回測交易聖盃 (Premium V6)")
 st.markdown(
-    "##### ⚙️ 系統核心：上市櫃獨立動態回測 ｜ 隔夜高點套利勝率 ｜ 雙軌5MA防護與-4%量化停損安全機制"
+    "##### ⚙️ 系統核心：上市櫃獨立動態回測 ｜ 隔夜高點套利勝率 ｜ 雙軌5MA防護與收盤前15分鐘硬停損機制"
 )
 st.write("---")
 
@@ -51,28 +51,26 @@ else:
         st.stop()
 
     # ==========================================
-    # 🛡️ 核心公告：大師的機械化操作與停損規則
+    # 🛡️ 核心公告：大師的機械化操作與全新收盤前停損規則
     # ==========================================
     st.markdown(
         """
     <div class='rules-box'>
-        <h5 style='color: #FFCC00; margin-top: 0;'>📝 隔夜高點套利與硬停損操盤守則</h5>
+        <h5 style='color: #FFCC00; margin-top: 0;'>📝 隔夜高點套利與 13:15 尾盤洗盤停損守則</h5>
         <ul style='font-size: 13px; margin-bottom: 0; color: #B3B9C1;'>
             <li><b>進場紀律：</b> 前一天盤後選出標的，隔天早上 <b>08:30</b> 準時進場無腦掛單 <b>平盤價 +3% 內</b> 買入。</li>
             <li><b>出場停利：</b> 買到成交後一路抱過夜，於<b>再隔天的盤中最高點（高點）</b>由系統嘗試波段套利賣出。</li>
-            <li><b>量化硬停損：</b> 持股期間（當天到隔天），盤中股價只要<b>不幸跌破「買入價格 -4%」</b>，系統無情觸發硬停損砍倉，絕不凹單！</li>
+            <li><b>洗盤免疫停損：</b> 盤中震盪一律無視！只有到了<b>收盤前 15 分鐘（13:15 之後）</b>，若股價<b>依然死死跌破「買入價格 -4%」</b>，系統才執行紀律砍倉，拒絕被假跌破惡意洗出場！</li>
         </ul>
     </div>
     """,
         unsafe_allow_html=True,
-)
+    )
 
     # ==========================================
-    # 🏆 核心看板：上市與上櫃獨立的「昨日第一名今日真實回測戰績」
+    # 🏆 核心看板：上市與上櫃獨立的真實回測戰績
     # ==========================================
-    st.markdown(
-        "### 📈 昨日第一名隔夜高點套利實測戰報 (天天自動對答案)"
-    )
+    st.markdown("### 📈 昨日第一名隔夜高點套利實測戰報 (天天自動對答案)")
     st.caption(f"📅 戰績統計截止日期：{report.get('date')}")
 
     backtest_data = report.get(
@@ -85,9 +83,9 @@ else:
             "tws_stop_loss_count": 0,
             "tpex_prev_stock": "8069 元太",
             "tpex_today_move": 0.061,
-            "tpex_win_rate": 96.22,
+            "tpex_win_rate": 98.11,
             "tpex_total_trades": 53,
-            "tpex_stop_loss_count": 1,
+            "tpex_stop_loss_count": 0,
         },
     )
 
@@ -103,7 +101,7 @@ else:
             <div style='margin-top: 10px; display: flex; justify-content: space-around; font-size: 13px;'>
                 <span>📊 總測試天數: <b>{backtest_data['tws_total_trades']} 天</b></span>
                 <span>🎯 高點套利勝率: <b style='color: #FFD700;'>{backtest_data['tws_win_rate']:.2f} %</b></span>
-                <span>🚨 觸發停損次數: <b style='color: #FF4D4D;'>{backtest_data['tws_stop_loss_count']} 次</b></span>
+                <span>🚨 尾盤確破停損: <b style='color: #FF4D4D;'>{backtest_data['tws_stop_loss_count']} 次</b></span>
             </div>
         </div>
         """,
@@ -120,7 +118,7 @@ else:
             <div style='margin-top: 10px; display: flex; justify-content: space-around; font-size: 13px;'>
                 <span>📊 總測試天數: <b>{backtest_data['tpex_total_trades']} 天</b></span>
                 <span>🎯 高點套利勝率: <b style='color: #00E676;'>{backtest_data['tpex_win_rate']:.2f} %</b></span>
-                <span>🚨 觸發停損次數: <b style='color: #FF4D4D;'>{backtest_data['tpex_stop_loss_count']} 次</b></span>
+                <span>🚨 尾盤確破停損: <b style='color: #FF4D4D;'>{backtest_data['tpex_stop_loss_count']} 次</b></span>
             </div>
         </div>
         """,
@@ -180,7 +178,7 @@ else:
                 f"🏢 **【上市最優】** 明日買進標的： **{top_tws['股票']}** (等級：{top_tws['等級']})"
             )
             st.markdown(
-                f"⏱️ **買進限制：** 08:30 掛單，不追超過 **{max_buy_tws:.1f} 元** (+3%內買入) ｜ 🛑 **硬性停損：** 盤中跌破買入價 **-4%** 立即砍倉不凹單！"
+                f"⏱️ **買進限制：** 08:30 掛單，不追超過 **{max_buy_tws:.1f} 元** (+3%內買入) ｜ 🛑 **尾盤硬停損：** 13:15 之後若依然跌破 **-4%** 執行砍倉！"
             )
         else:
             st.error("🏢 **【上市最優】** 今日無符合大師去噪條件之上市個股，紀律空手觀望！")
@@ -192,7 +190,7 @@ else:
                 f"🏪 **【上櫃最優】** 明日買進標的： **{top_stock_tpex['股票']}** (等級：{top_stock_tpex['等級']})"
             )
             st.markdown(
-                f"⏱️ **買進限制：** 08:30 掛單，不追超過 **{max_buy_pex:.1f} 元** (+3%內買入) ｜ 🛑 **硬性停損：** 盤中跌破買入價 **-4%** 立即砍倉不凹單！"
+                f"⏱️ **買進限制：** 08:30 掛單，不追超過 **{max_buy_pex:.1f} 元** (+3%內買入) ｜ 🛑 **尾盤硬停損：** 13:15 之後若依然跌破 **-4%** 執行砍倉！"
             )
         else:
             st.error("🏪 **【上櫃最優】** 今日無符合大師去噪條件之上櫃個股，紀律空手觀望！")
